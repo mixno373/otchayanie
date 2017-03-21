@@ -35,7 +35,14 @@ int main()
 					if (lc == '\"') { slkol = 1; }
 					else { slkol++; }
 				}
-				else { if (c != '\"') { slkol = 0; } }
+				else {
+					if (c != '\"') {
+						if ((lc == '\"') && (slkol % 2 == 1)) {
+							fputc(c, fout); goto xyz;
+						}
+						else { slkol = 0; }
+					}
+				}
 				fputc(c, fout);
 			}
 			//fputc('#', fout); 
@@ -60,7 +67,14 @@ int main()
 						if (lc == '\'') { slkol = 1; }
 						else { slkol++; }
 					}
-					else { if (c != '\'') { slkol = 0; } }
+					else {
+						if (c != '\'') {
+							if ((lc == '\'') && (slkol % 2 == 1)) {
+								fputc(c, fout); goto xyz;
+							}
+							else { slkol = 0; }
+						}
+					}
 					fputc(c, fout);
 				}
 				goto xyz;
