@@ -4,7 +4,7 @@
 
 int main()
 {
-	FILE *fin = fopen("in.c", "r");
+	FILE *fin = fopen("test1.c", "r");
 	FILE *fout = fopen("new.c", "w");
 	int i = 0, slkol = 0; //slkol - количество слешей, идущих подряд 
 	char cArray[10000], c = 'n', lc = 'n', s[10000], cc = 'n', ccc = 'n';
@@ -36,12 +36,15 @@ int main()
 					else { slkol++; }
 				}
 				else {
-					if (c != '\"') {
-						if ((lc == '\"') && (slkol % 2 == 1)) {
-							fputc(c, fout); goto xyz;
+					if (c == '\"') {
+						if (lc == '\"') {
+							if (slkol % 2 == 1) {
+								fputc(c, fout); goto xyz;
+							}
+							else { slkol = 0; }
 						}
-						else { slkol = 0; }
 					}
+					else { slkol = 0; }
 				}
 				fputc(c, fout);
 			}
@@ -68,12 +71,14 @@ int main()
 						else { slkol++; }
 					}
 					else {
-						if (c != '\'') {
-							if ((lc == '\'') && (slkol % 2 == 1)) {
+						if (c == '\'') {
+							if (lc == '\'') { if (slkol % 2 == 1) {
 								fputc(c, fout); goto xyz;
 							}
 							else { slkol = 0; }
 						}
+						}
+						else { slkol = 0; }
 					}
 					fputc(c, fout);
 				}
